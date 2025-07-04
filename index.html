@@ -55,6 +55,15 @@
             position: relative;
             box-shadow: 0 4px 16px rgba(147, 112, 219, 0.5);
             animation: float 3s ease-in-out infinite;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .float-stone:hover {
+            transform: scale(1.15) translateY(-5px);
+            box-shadow: 0 8px 32px rgba(147, 112, 219, 0.8);
+            border-color: #8A2BE2;
+            filter: brightness(1.2);
         }
 
         .float-stone::before {
@@ -192,7 +201,7 @@
         </div>
 
         <div class="footer">
-            <p>© 2025 The Float Stone Weight Database | Inspired by the Pokémon series</p>
+            <p>© 2025 The Float Stone Database | Inspired by the Pokémon series</p>
         </div>
     </div>
 </body>
