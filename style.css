@@ -27,6 +27,78 @@ header {
     margin-bottom: 30px;
 }
 
+.float-stone-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.float-stone {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, #E6E6FA 0%, #D8BFD8 50%, #DDA0DD 100%);
+    border: 2px solid #9370DB;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 4px 16px rgba(147, 112, 219, 0.5);
+    animation: float 3s ease-in-out infinite;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.float-stone:hover {
+    transform: scale(1.15) translateY(-5px);
+    box-shadow: 0 8px 32px rgba(147, 112, 219, 0.8);
+    border-color: #8A2BE2;
+    filter: brightness(1.2);
+}
+
+.float-stone::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, #F0E68C 0%, #DDA0DD 70%);
+    border-radius: 50%;
+    box-shadow: inset 0 2px 8px rgba(255, 255, 255, 0.6);
+}
+
+.float-stone::after {
+    content: '';
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    width: 20%;
+    height: 20%;
+    background: #FFE4E1;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.sparkle {
+    position: absolute;
+    color: #FFD700;
+    font-size: 1.2em;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+.sparkle1 { top: 5%; left: 5%; animation-delay: 0s; }
+.sparkle2 { top: 15%; right: 10%; animation-delay: 0.7s; }
+.sparkle3 { bottom: 20%; left: 15%; animation-delay: 1.4s; }
+.sparkle4 { bottom: 10%; right: 5%; animation-delay: 2.1s; }
+
 h1 {
     color: #4169E1;
     font-size: 2.5em;
@@ -75,6 +147,18 @@ h1 {
     justify-content: center;
     margin: 50px 0;
     perspective: 1000px;
+    position: relative;
+    height: 300px;
+}
+
+.falling-balls-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
 }
 
 .scale {
@@ -148,6 +232,25 @@ h1 {
     background: linear-gradient(to bottom, #D3D3D3, #A9A9A9);
     transform: translateY(-5px);
     border-color: #4169E1;
+    box-shadow: 0 6px 12px rgba(65, 105, 225, 0.4);
+}
+
+.drop-zone {
+    font-size: 0.9em;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+    padding: 5px;
+    border: 2px dashed transparent;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.scale-platform:hover .drop-zone {
+    border-color: #4169E1;
+    background: rgba(65, 105, 225, 0.1);
+    color: #4169E1;
 }
 
 .platform-label {
@@ -306,6 +409,44 @@ button {
     border: 2px solid #333;
     position: relative;
     animation: dropIn 0.5s ease;
+}
+
+.falling-ball {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #333;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.falling-ball::before {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    top: 8px;
+    left: 10px;
+}
+
+@keyframes ballFall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(200px) rotate(360deg);
+        opacity: 1;
+    }
+}
+
+@keyframes ballBounce {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-10px) scale(1.1); }
+    100% { transform: translateY(0) scale(1); }
 }
 
 .placed-ball::before {
