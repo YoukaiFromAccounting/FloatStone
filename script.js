@@ -18,13 +18,13 @@ class InteractiveScale {
     }
 
     bindEvents() {
-        // Platform click events
-        document.getElementById('leftPlatform').addEventListener('click', () => {
-            this.addBall('left');
+        // Platform click events for ball dropping
+        document.getElementById('leftPlatform').addEventListener('click', (e) => {
+            this.dropBall(e, 'left');
         });
 
-        document.getElementById('rightPlatform').addEventListener('click', () => {
-            this.addBall('right');
+        document.getElementById('rightPlatform').addEventListener('click', (e) => {
+            this.dropBall(e, 'right');
         });
 
         // Ball selection events
@@ -45,6 +45,42 @@ class InteractiveScale {
 
         // Initialize first ball selection
         document.querySelector('.ball-option').classList.add('selected');
+    }
+
+    dropBall(event, side) {
+        const ballWeight = this.selectedBallWeight;
+        const scaleContainer = document.querySelector('.scale-container');
+        const fallingBallsContainer = document.getElementById('fallingBalls');
+        
+        // Get click position relative to scale container
+        const rect = scaleContainer.getBoundingClientRect();
+        const clickX = event.clientX - rect.left;
+        
+        // Create falling ball
+        const fallingBall = document.createElement('div');
+        fallingBall.className = 'falling-ball';
+        
+        // Set ball color based on weight
+        if (ballWeight === 5) {
+            fallingBall.style.background = 'radial-gradient(circle at 30% 30%, #FF6B6B, #FF4757)';
+        } else if (ballWeight === 10) {
+            fallingBall.style.background = 'radial-gradient(circle at 30% 30%, #4ECDC4, #26C6DA)';
+        } else if (ballWeight === 20) {
+            fallingBall.style.background = 'radial-gradient(circle at 30% 30%, #FFD93D, #FFC107)';
+        }
+        
+        // Position ball at click location
+        fallingBall.style.left = (clickX - 20) + 'px';
+        fallingBall.style.top = '-50px';
+        fallingBall.style.animation = 'ballFall 1s ease-in forwards';
+        
+        fallingBallsContainer.appendChild(fallingBall);
+        
+        // Remove falling ball and add to platform after animation
+        setTimeout(() => {
+            fallingBall.remove();
+            this.addBall(side);
+        }, 1000);
     }
 
     selectBall(selectedOption) {
